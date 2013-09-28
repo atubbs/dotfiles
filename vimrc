@@ -3,8 +3,8 @@
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-Bundle 'tpope/vim-fugitive'
-Bundle 'ervandew/supertab'
+# Bundle 'tpope/vim-fugitive'
+# Bundle 'ervandew/supertab'
 
 " }}}
 " SETTINGS {{{

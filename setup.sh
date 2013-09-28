@@ -5,7 +5,7 @@
 git submodule update --init
 
 # dotfile bootstrap
-for file in vimrc vim zshrc tmux.conf gitconfig; do
+for file in vimrc vim zshrc zsh tmux.conf gitconfig; do
   # Check to see if the file already has a symlink. If it does, we won't touch
   # it.
   if [ ! -h ~/.${file} ]; then
@@ -21,11 +21,6 @@ for file in vimrc vim zshrc tmux.conf gitconfig; do
     fi
     # Add the appropriate symlink
     echo "Symlinking ~/dotfiles/${file} to ~/.${file}"
-    ln -s ~/dotfiles/${file} ~/.${file}
+    ln -s ~/code/dotfiles/${file} ~/.${file}
   fi
-done
-
-# other environment buildup
-for file in code/zsh-syntax-highlighting; do
-
 done
