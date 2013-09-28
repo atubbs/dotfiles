@@ -3,8 +3,8 @@
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-# Bundle 'tpope/vim-fugitive'
-# Bundle 'ervandew/supertab'
+" Bundle 'tpope/vim-fugitive'
+" Bundle 'ervandew/supertab'
 
 " }}}
 " SETTINGS {{{
@@ -476,6 +476,3 @@ highlight ShowMarksHLm ctermfg=118 ctermbg=235
 " dfx -> dtx retains char x
 "
 " EOTIPS }}}
-" PATHOGEN {{{
-execute pathogen#infect()
-" }}}
