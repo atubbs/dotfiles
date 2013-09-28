@@ -3,11 +3,17 @@
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-" Bundle 'tpope/vim-fugitive'
-" Bundle 'ervandew/supertab'
+
+" Don't forget to :VundleInstall to bootstrap environment!
+Bundle 'tomasr/molokai'
+Bundle 'tpope/vim-fugitive'
+Bundle 'ervandew/supertab'
+Bundle 'bling/vim-airline'
 
 " }}}
 " SETTINGS {{{
+
+let g:airline_powerline_fonts = 1
 
 " make quickfix use existing buffer if present, otherwise spawn a new tab,
 " rather than do stupid shit
