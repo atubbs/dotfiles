@@ -1,0 +1,5 @@
+# these are built by vundle; don't track them here
+vim/bundle/molokai/
+vim/bundle/supertab/
+vim/bundle/vim-airline/
+vim/bundle/vim-fugitive/
