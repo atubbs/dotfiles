@@ -1,7 +1,13 @@
+# Calculate a short checksum of the real hostname to determine a unique color
+if [[ $TERM =~ "256color" ]]; then
+   host_color="38;5;$((16 + $(hostname | cksum | cut -c1-3) % 256))";
+else
+   host_color="1;$((31 + $(hostname | cksum | cut -c1-3) % 6))";
+fi
+
 export PATH="$HOME/scripts:$PATH"
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export PROMPT=$'\e[0;32m%m.%h\e[0m %% '
-#precmd () { __git_ps1 "%m.%h" ":%~$ " "|%s" }
+#export PROMPT=$'\e[0;32m%m.%h\e[0m %% '
 precmd () { __git_ps1 "%m" "|%h $ " "|%s" }
 fpath=($HOME/.zsh $fpath)
 
