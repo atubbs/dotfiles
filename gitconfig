@@ -1,0 +1,11 @@
+[user]
+	name = Aaron N. Tubbs
+	email = atubbs@server.fake
+[push]
+	default = matching
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[difftool]
+	prompt = false
