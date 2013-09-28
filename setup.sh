@@ -4,8 +4,7 @@
 
 git submodule update --init
 
-# Iterate over the list of setup files we want to alias from our dotfile
-# distribution
+# dotfile bootstrap
 for file in vimrc vim zshrc tmux.conf gitconfig; do
   # Check to see if the file already has a symlink. If it does, we won't touch
   # it.
@@ -26,4 +25,7 @@ for file in vimrc vim zshrc tmux.conf gitconfig; do
   fi
 done
 
+# other environment buildup
+for file in code/zsh-syntax-highlighting; do
 
+done
