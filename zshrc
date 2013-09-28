@@ -1,8 +1,10 @@
 export PATH="$HOME/scripts:$PATH"
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export PROMPT=$'\e[0;32m%m.%h\e[0m %% '
+fpath=($HOME/.zsh $fpath)
+source $HOME/.zsh/git-contrib/git-prompt.sh
 export EDITOR="vim"
 alias ls="ls --color=auto"
-export PROMPT=$'\e[0;32m%m.%h\e[0m %% '
 alias make="colormake"
 setopt vi
 #export PATH="/home/atubbs/local/bin:/home/atubbs/scripts:$PATH"
