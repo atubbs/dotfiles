@@ -1,8 +1,9 @@
 export PATH="$HOME/scripts:$PATH"
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export PROMPT=$'\e[0;32m%m.%h\e[0m %% '
+#export PROMPT=$'\e[0;32m%m.%h\e[0m %% '
+precmd () { __git_ps1 "%n" ":%~$ " "|%s" }
 fpath=($HOME/.zsh $fpath)
-source $HOME/.zsh/git-contrib/git-prompt.sh
+source $HOME/.git-prompt.sh
 export EDITOR="vim"
 alias ls="ls --color=auto"
 alias make="colormake"
