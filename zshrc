@@ -1,3 +1,4 @@
+export PATH="$HOME/scripts:$PATH"
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export EDITOR="vim"
 alias ls="ls --color=auto"
