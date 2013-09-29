@@ -1,29 +1,41 @@
-# Calculate a short checksum of the real hostname to determine a unique color
-if [[ $TERM =~ "256color" ]]; then
-   host_color="38;5;$((16 + $(hostname | cksum | cut -c1-3) % 256))";
-else
-   host_color="1;$((31 + $(hostname | cksum | cut -c1-3) % 6))";
-fi
-
+export EDITOR="vim"
 export PATH="$HOME/scripts:$PATH"
-source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#export PROMPT=$'\e[0;32m%m.%h\e[0m %% '
-precmd () { __git_ps1 "%m" "|%h $ " "|%s" }
-fpath=($HOME/.zsh $fpath)
+
+export TERM="screen-256color"
 
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
-source $HOME/.git-prompt.sh
 
-export EDITOR="vim"
+source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.git-prompt.sh
+#source $HOME/.keychain.sh
+
+# unique prompt hostname color by checksum plus other prompt decor
+if [[ $TERM =~ "256color" ]]; then
+  host_color="38;5;$((16 + $(hostname | cksum | cut -c1-3) % 216))";
+  COLOR_BAR="%{[38;5;237m%}"
+  COLOR_HIST="%{[38;5;235m%}"
+  COLOR_GIT="%{[38;5;242m%}"
+else
+  host_color="1;$((31 + $(hostname | cksum | cut -c1-3) % 6))";
+  COLOR_BAR="%{[0;37m%}"
+  COLOR_HIST="%{[1;30m%}"
+  COLOR_GIT="%{[1;37m%}"
+fi
+COLOR_HOST="%{["${host_color}"m%}"
+COLOR_NONE="%{[0m%}"
+
+precmd () { __git_ps1 "${COLOR_HOST}%m${COLOR_BAR}|${COLOR_GIT}" "${COLOR_BAR}|${COLOR_HIST}%h ${COLOR_BAR}>${COLOR_NONE} " "%s" }
+
+fpath=($HOME/.zsh $fpath)
+
 alias ls="ls --color=auto"
 alias make="colormake"
-setopt vi
-#export PATH="/home/atubbs/local/bin:/home/atubbs/scripts:$PATH"
-#bindkey "^R" history-incremental-search-backward
-#bindkey "^N" down-line-or-history
-#bindkey "^P" up-line-or-history
-#alias glances="python /home/atubbs/media/code/glances/glances/glances.py -e -1"
 
-# keychain -q --nogui --agents ssh id_rsa
-# . ~/.keychain/`hostname`-sh
+setopt vi
+
+#export PATH="/home/atubbs/local/bin:/home/atubbs/scripts:$PATH"
+bindkey "^N" down-line-or-history
+bindkey "^P" up-line-or-history
+bindkey "^R" history-incremental-search-backward
+

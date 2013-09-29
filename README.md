@@ -11,4 +11,6 @@ Relatively minimal at this point, but make sure to grab:
 
 post-setup
 ==========
-* Don't forget to pop into vim and run :VundleInstall
+* pop into vim and run :VundleInstall
+* configure ssh keys/authorized keys & keychain
+
