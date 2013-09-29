@@ -11,6 +11,6 @@ Relatively minimal at this point, but make sure to grab:
 
 post-setup
 ==========
-* pop into vim and run :VundleInstall
+* pop into vim and run :BundleInstall
 * configure ssh keys/authorized keys & keychain
 
