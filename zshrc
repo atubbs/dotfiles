@@ -8,7 +8,7 @@ GIT_PS1_SHOWSTASHSTATE=1
 
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.git-prompt.sh
-#source $HOME/.keychain.sh
+source $HOME/.keychain.sh
 
 # unique prompt hostname color by checksum plus other prompt decor
 if [[ $TERM =~ "256color" ]]; then
@@ -34,8 +34,6 @@ alias make="colormake"
 
 setopt vi
 
-#export PATH="/home/atubbs/local/bin:/home/atubbs/scripts:$PATH"
 bindkey "^N" down-line-or-history
 bindkey "^P" up-line-or-history
 bindkey "^R" history-incremental-search-backward
-
