@@ -10,6 +10,9 @@ source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.git-prompt.sh
 source $HOME/.keychain.sh
 
+OS=`uname -s`
+
+
 # unique prompt hostname color by checksum plus other prompt decor
 if [[ $TERM =~ "256color" ]]; then
   host_color="38;5;$((16 + $(hostname | cksum | cut -c1-3) % 216))";
@@ -29,7 +32,13 @@ precmd () { __git_ps1 "${COLOR_HOST}%m${COLOR_BAR}•${COLOR_GIT}" "${COLOR_BAR}
 
 fpath=($HOME/.zsh $fpath)
 
-alias ls="ls --color=auto"
+
+if [[ $OS =~ "Darwin" ]]; then
+  alias ls="ls -G"
+else
+  alias ls="ls --color=auto"
+fi
+
 alias make="colormake"
 
 setopt vi
