@@ -21,7 +21,7 @@ for file in vimrc vim zshrc zsh tmux.conf gitconfig git-prompt.sh keychain.sh; d
     fi
     # Add the appropriate symlink
     echo "Symlinking dotfiles/${file} to ~/.${file}"
-    ln -s ${file} ~/.${file}
+    ln -s ./${file} ~/.${file}
   fi
 done
 
@@ -36,6 +36,6 @@ for file in scripts; do
       fi
     fi
     echo "Symlinking dotfiles/${file} to ~/${file}"
-    ln -s ${file} ~/${file}
+    ln -s ./${file} ~/${file}
   fi
 done
