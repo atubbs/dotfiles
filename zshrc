@@ -25,7 +25,7 @@ fi
 COLOR_HOST="%{["${host_color}"m%}"
 COLOR_NONE="%{[0m%}"
 
-precmd () { __git_ps1 "${COLOR_HOST}%m${COLOR_BAR}|${COLOR_GIT}" "${COLOR_BAR}|${COLOR_HIST}%h ${COLOR_BAR}>${COLOR_NONE} " "%s" }
+precmd () { __git_ps1 "${COLOR_HOST}%m${COLOR_BAR}•${COLOR_GIT}" "${COLOR_BAR}•${COLOR_HIST}%h${COLOR_NONE} " "%s" }
 
 fpath=($HOME/.zsh $fpath)
 
