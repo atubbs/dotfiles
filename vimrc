@@ -5,10 +5,14 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " Don't forget to :VundleInstall to bootstrap environment!
-Bundle 'tomasr/molokai'
-Bundle 'tpope/vim-fugitive'
-Bundle 'ervandew/supertab'
 Bundle 'bling/vim-airline'
+Bundle 'ervandew/supertab'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'tomasr/molokai'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
+
 
 " }}}
 " SETTINGS {{{
