@@ -46,7 +46,8 @@ set nofoldenable
 set formatlistpat=^\\s*\\(\\d\\+\\\|\\*\\\|-\\\|∙\\\|•\\\|∘\\\|·\\)[]:.)}\\t\ ]\\s*
 set formatoptions=croqnl12
 set grepprg=grep\ -nH\ $* " my grep supports -H, so I've set it, since options.txt told me to
-set guifont=Bitstream\ Vera\ Sans\ Mono\ 12 " foo
+"set guifont=Bitstream\ Vera\ Sans\ Mono\ 12 " foo
+set guifont=Sauce\ Code\ Powerline:h11
 set guioptions=ac
 set history=50
 set hlsearch
