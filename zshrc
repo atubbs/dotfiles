@@ -1,6 +1,6 @@
 export EDITOR="vim"
-if [ -d ~/local/bin ]; then
-  export PATH="$HOME/scripts:~/local/bin:$PATH"
+if [ -d $HOME/local/bin ]; then
+  export PATH="$HOME/scripts:$HOME/local/bin:$PATH"
 else
   export PATH="$HOME/scripts:$PATH"
 fi
