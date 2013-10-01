@@ -1,5 +1,9 @@
 export EDITOR="vim"
-export PATH="$HOME/scripts:$PATH"
+if [ -d ~/local/bin ]; then
+  export PATH="$HOME/scripts:~/local/bin:$PATH"
+else
+  export PATH="$HOME/scripts:$PATH"
+fi
 export TERM="screen-256color"
 
 # used by the git prompt thing
