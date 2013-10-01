@@ -13,4 +13,3 @@ post-setup
 ==========
 * pop into vim and run :BundleInstall
 * configure ssh keys/authorized keys & keychain
-
