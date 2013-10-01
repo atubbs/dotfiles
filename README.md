@@ -1,7 +1,6 @@
 dotfiles
 ========
-Bootstrap a home directory. Clone into ~/code/dotfiles and run setup.sh.
-May not work if it gets cloned somewhere else (probably a good TODO there).
+Bootstrap a home directory. Clone into wherever you like and run setup.sh.
 
 external setup
 ==============
@@ -9,7 +8,11 @@ Relatively minimal at this point, but make sure to grab:
 
 * https://github.com/Lokaltog/powerline-fonts/tree/master/SourceCodePro
 
+This will make vim look a lot prettier with airline and so forth.
+
 post-setup
 ==========
 * pop into vim and run :BundleInstall
 * configure ssh keys/authorized keys & keychain
+
+
