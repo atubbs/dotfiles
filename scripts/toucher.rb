@@ -12,5 +12,3 @@ if not File.exists?(CONFIGFILE)
   exit
 end
 File.open(CONFIGFILE) { |yf| YAML::load(yf) }.each { |touchfile| File.open(touchfile, 'w') { |file| file.write(Time.now.getutc) } }
-
-#cnf = YAML::load_file(File.open(ENV['HOME']+'/.toucher.yaml'))
