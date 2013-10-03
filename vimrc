@@ -3,16 +3,18 @@
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
 " Don't forget to :VundleInstall to bootstrap environment!
-Bundle 'tomasr/molokai'
-Bundle 'tpope/vim-fugitive'
-Bundle 'ervandew/supertab'
 Bundle 'bling/vim-airline'
-
+Bundle 'ervandew/supertab'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'tomasr/molokai'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
 " }}}
 " SETTINGS {{{
 
+" make airline prettery, because why not?
 let g:airline_powerline_fonts = 1
 
 " make quickfix use existing buffer if present, otherwise spawn a new tab,
@@ -22,17 +24,13 @@ let g:airline_powerline_fonts = 1
 " make sure ({}) doesn't error in C++11
 let c_no_curly_error=1
 
-"let g:SuperTabDefaultCompletionType = "<c-x><c-]>"
-"let g:SuperTabDefaultCompletionType = "<c-n>"
-"let g:SuperTabContextDefaultCompletionType = "<c-n>"
-
 set autochdir
 set backspace=indent,eol,start
 set bdir=~/tmp/vimbu,/tmp
 set bk
 set bkc=yes " needed in order to preserve application assignment to file in OS X
-set completeopt=longest,menu,preview
 set complete-=i " don't scan included files (slow)
+set completeopt=longest,menu,preview
 set diffopt=filler,vertical,iwhite,foldcolumn:2
 set dir=~/tmp/vimsw,/tmp
 set display=lastline
@@ -42,11 +40,9 @@ set fileformats=unix,mac,dos
 set foldcolumn=1
 set foldmethod=manual
 set foldminlines=0
-set nofoldenable
 set formatlistpat=^\\s*\\(\\d\\+\\\|\\*\\\|-\\\|∙\\\|•\\\|∘\\\|·\\)[]:.)}\\t\ ]\\s*
 set formatoptions=croqnl12
 set grepprg=grep\ -nH\ $* " my grep supports -H, so I've set it, since options.txt told me to
-"set guifont=Bitstream\ Vera\ Sans\ Mono\ 12 " foo
 set guifont=Sauce\ Code\ Powerline:h11
 set guioptions=ac
 set history=50
@@ -62,6 +58,7 @@ set mouse=a
 set mousemodel=popup_setpos
 set nocompatible " Toto, I've a feeling we're not in Kansas anymore.
 set noerrorbells
+set nofoldenable
 set nomousefocus
 set nowrap
 set number
@@ -76,20 +73,17 @@ set sidescrolloff=10
 set smartcase
 set spellfile=~/.vimspellinglist.add
 set spelllang=en
-
-
-
-set statusline=
-set statusline +=\ %n\ %*            "buffer number
-set statusline +=%{\"\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"\ \"}%* " encoding
-set statusline +=%{&ff}%*            "file format
-"set statusline +=\ %y%*              "file type
-set statusline +=\ %<%F%*            "full path
-set statusline +=%m%*                "modified flag
-set statusline +=%=%5l%*             "current line
-set statusline +=/%L%*               "total lines
 set statusline +=%4v\ %*             "virtual column number
+set statusline +=%=%5l%*             "current line
+set statusline +=%m%*                "modified flag
+set statusline +=%{&ff}%*            "file format
+set statusline +=%{\"\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"\ \"}%* " encoding
+set statusline +=/%L%*               "total lines
+"set statusline +=\ %y%*              "file type
 set statusline +=0x%04B\ %*          "character under cursor
+set statusline +=\ %<%F%*            "full path
+set statusline +=\ %n\ %*            "buffer number
+set statusline=
 set sts=2
 set sw=2
 set title
@@ -110,7 +104,6 @@ set wmh=0
 set wrapscan " wrap when searching
 " EOSETTINGS }}}
 " AUTOCOMMANDS {{{
-
 " make dealing with gzip files not really a pain
 augroup gzip
   autocmd BufReadPost,FileReadPost    *.gz '[,']!gunzip
@@ -126,7 +119,6 @@ augroup end
 augroup spelling
   autocmd BufEnter *.{markdown} set spell
 augroup end
-
 " }}}
 " COLORSCHEMES & syntax {{{
 color molokai
@@ -443,16 +435,6 @@ nmap <silent> <F7> :setlocal invspell<CR>
 nnoremap Y y$
 xnoremap Y y$
 
-" training wheels
-"inoremap  <Up> <nop>
-"inoremap! <Up> <nop>
-"inoremap  <Down> <nop>
-"inoremap! <Down> <nop>
-"inoremap  <Left> <nop>
-"inoremap! <Left> <nop>
-"inoremap  <Right> <nop>
-"inoremap! <Right> <nop>
-
 " reaching for escape is dumb; make jk equivalent to escape in insert mode,
 " provided I type it quickly enough
 inoremap jk <Esc>
@@ -463,12 +445,6 @@ set tags=tags;/
 " EOMAPPINGS }}}
 " PLUGINS {{{
 filetype plugin indent on
-
-highlight ShowMarksHLl ctermfg=161 ctermbg=235
-highlight ShowMarksHLu ctermfg=81 ctermbg=235
-highlight ShowMarksHLo ctermfg=135 ctermbg=235
-highlight ShowMarksHLm ctermfg=118 ctermbg=235
-
 " EOPLUGINS }}}
 " TIPS & CRAP I FORGET ALWAYS {{{
 " - ^Wo => zoom into/out of window

@@ -5,7 +5,7 @@
 git submodule update --init
 
 # dotfile bootstrap
-for file in vimrc vim zshrc zsh tmux.conf gitconfig git-prompt.sh keychain.sh; do
+for file in gdbinit vimrc vim zshrc zsh tmux.conf gitconfig git-prompt.sh keychain.sh; do
   # Check to see if the file already has a symlink. If it does, we won't touch
   # it.
   if [ ! -h ~/.${file} ]; then
