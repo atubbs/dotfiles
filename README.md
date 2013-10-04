@@ -17,4 +17,4 @@ post-setup
 
 things to install on an ubuntu box 
 ==================================
-* git duplicity zsh python-paramiko subversion
+* git duplicity zsh python-paramiko subversion python-pygments
