@@ -47,7 +47,7 @@ else
 fi
 alias make="colormake"
 
-alias ccat="$HOME/ccat.sh"
+alias ccat="$HOME/scripts/ccat.sh"
 
 # well, it wasn't going to be emacs, you know
 setopt vi
