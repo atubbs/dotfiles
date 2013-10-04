@@ -15,4 +15,6 @@ post-setup
 * pop into vim and run :BundleInstall
 * configure ssh keys/authorized keys & keychain
 
-
+things to install on an ubuntu box 
+==================================
+* git duplicity zsh python-paramiko
