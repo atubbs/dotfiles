@@ -3,7 +3,6 @@ export EDITOR="vim"
 autoload -U compinit promptinit
 compinit
 promptinit
-prompt walters
 
 bindirs=("$HOME/scripts" "$HOME/local/bin" "$HOME/.local/bin")
 for p in $bindirs; do
@@ -27,11 +26,13 @@ if [[ $TERM =~ "256color" ]]; then
   host_color="38;5;$((16 + $(hostname | cksum | cut -c1-3) % 216))";
   COLOR_BAR="%{[38;5;237m%}"
   COLOR_HIST="%{[38;5;235m%}"
+  COLOR_RP="%{[38;5;235m%}"
   COLOR_GIT="%{[38;5;242m%}"
 else
   host_color="1;$((31 + $(hostname | cksum | cut -c1-3) % 6))";
   COLOR_BAR="%{[0;37m%}"
   COLOR_HIST="%{[1;30m%}"
+  COLOR_RP="%{[1;30m%}"
   COLOR_GIT="%{[1;37m%}"
 fi
 COLOR_HOST="%{["${host_color}"m%}"
@@ -61,3 +62,5 @@ setopt vi
 bindkey "^N" down-line-or-history
 bindkey "^P" up-line-or-history
 bindkey "^R" history-incremental-search-backward
+
+export RPROMPT="${COLOR_HIST}%~${COLOR_NORMAL}"
