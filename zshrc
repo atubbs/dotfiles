@@ -1,5 +1,9 @@
 export EDITOR="vim"
 
+autoload -U compinit promptinit
+compinit
+promptinit
+
 bindirs=("$HOME/scripts" "$HOME/local/bin" "$HOME/.local/bin")
 for p in $bindirs; do
   PATH="$p:$PATH"
