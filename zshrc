@@ -3,7 +3,6 @@ export EDITOR="vim"
 autoload -U compinit promptinit
 compinit
 promptinit
-prompt walters
 
 bindirs=("$HOME/scripts" "$HOME/local/bin" "$HOME/.local/bin")
 for p in $bindirs; do
@@ -61,3 +60,6 @@ setopt vi
 bindkey "^N" down-line-or-history
 bindkey "^P" up-line-or-history
 bindkey "^R" history-incremental-search-backward
+
+# trailing cwd
+prompt walters
