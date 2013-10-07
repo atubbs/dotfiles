@@ -11,6 +11,7 @@ Bundle 'tomasr/molokai'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/nagios-syntax'
 " }}}
 " SETTINGS {{{
 
