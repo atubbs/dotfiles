@@ -1,5 +1,6 @@
 export EDITOR="vim"
 
+OS=`uname -s`
 autoload -U compinit promptinit
 compinit
 promptinit
@@ -8,7 +9,15 @@ bindirs=("$HOME/scripts" "$HOME/local/bin" "$HOME/.local/bin")
 for p in $bindirs; do
   PATH="$p:$PATH"
 done
+
+# macports; should make this pluggable/conditional
+if [[ $OS =~ "Darwin" ]]; then
+  export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+fi 
+
+# do the needful
 export PATH
+ 
 
 export TERM="screen-256color"
 
@@ -45,13 +54,15 @@ precmd () { __git_ps1 "${COLOR_HOST}%m${COLOR_BAR}•${COLOR_GIT}" "${COLOR_BAR}
 fpath=($HOME/.zsh $fpath)
 
 # good old BSD, making life complicated
-OS=`uname -s`
 if [[ $OS =~ "Darwin" ]]; then
   alias ls="ls -G"
 else
   alias ls="ls --color=auto"
 fi
-alias make="colormake"
+
+# this is causing me grief
+#alias make="colormake"
+
 
 alias ccat="$HOME/scripts/ccat.sh"
 
