@@ -64,3 +64,6 @@ bindkey "^P" up-line-or-history
 bindkey "^R" history-incremental-search-backward
 
 export RPROMPT="${COLOR_HIST}%~${COLOR_NORMAL}"
+
+# rvm, if we've got one
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
