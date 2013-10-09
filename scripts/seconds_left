@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+use DateTime;
+use Time::HiRes qw#usleep#;
+
+# not going to work with output buffering
+$|++;
+
+# caveat: this won't work for a time that's tomorrow
+print scalar @ARGV;
+die "usage: $0 <hour> [minute] [second]" unless @ARGV;
+my $hour = shift @ARGV;
+my $minute = @ARGV ? shift @ARGV : 0;
+my $second = @ARGV ? shift @ARGV : 0;
+
+my $tz = DateTime::TimeZone->new(name=>'local');
+my $dt = DateTime->new(
+  year => 2013,
+  month => 10,
+  day => 9,
+  hour => $hour,
+  minute => $minute,
+  second => $second,
+  nanosecond => 0,
+  time_zone => $tz
+);
+
+# let the user know we're not asleep
+my @sigil = ( ' ', '▁', '▂', '▃', '▅', '▆', '▇', '▆', '▅', '▃', '▂', '▁');
+#my @sigil = ( ' ', '.', '*', '0');
+#my @sigil = ( '|', '/', '-', '\');
+my $index = 0;
+
+# hide the cursor
+system("tput civis");
+@SIG{qw(INT TERM HUP)} = \&restore_cnorm;
+
+for (;;)
+{
+  # not really year 2038 compliant
+  printf ("\r%s %-10d", $sigil[$index++ % @sigil], $dt->epoch - time);
+
+  # lazy with some random prime; better would be to store usecs since last
+  # sleep and try to keep intervals consistent, but see lazy
+  usleep 129187;
+}
+
+sub restore_cnorm {
+  system("tput cnorm");
+  print "\n";
+  exit 0;
+}
