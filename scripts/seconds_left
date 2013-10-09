@@ -3,19 +3,23 @@
 use warnings;
 use strict;
 use DateTime;
-use Time::HiRes qw#usleep#;
+use Time::HiRes qw#usleep gettimeofday#;
+use Term::ANSIColor qw#:constants :pushpop#;
+use Math::Round qw#nearest_floor#;
 
 # not going to work with output buffering
 $|++;
 
-# caveat: this won't work for a time that's tomorrow
-print scalar @ARGV;
+# update frequency
+use constant IDEAL_TICK => 50000;
+
 die "usage: $0 <hour> [minute] [second]" unless @ARGV;
+
+# when should this thing fire?
 my $hour = shift @ARGV;
 my $minute = @ARGV ? shift @ARGV : 0;
 my $second = @ARGV ? shift @ARGV : 0;
 
-my $tz = DateTime::TimeZone->new(name=>'local');
 my $dt = DateTime->new(
   year => 2013,
   month => 10,
@@ -24,31 +28,78 @@ my $dt = DateTime->new(
   minute => $minute,
   second => $second,
   nanosecond => 0,
-  time_zone => $tz
+  time_zone => DateTime::TimeZone->new(
+    name => 'local'
+  )
 );
 
-# let the user know we're not asleep
-my @sigil = ( ' ', '▁', '▂', '▃', '▅', '▆', '▇', '▆', '▅', '▃', '▂', '▁');
-#my @sigil = ( ' ', '.', '*', '0');
-#my @sigil = ( '|', '/', '-', '\');
-my $index = 0;
-
-# hide the cursor
-system("tput civis");
-@SIG{qw(INT TERM HUP)} = \&restore_cnorm;
-
-for (;;)
-{
-  # not really year 2038 compliant
-  printf ("\r%s %-10d", $sigil[$index++ % @sigil], $dt->epoch - time);
-
-  # lazy with some random prime; better would be to store usecs since last
-  # sleep and try to keep intervals consistent, but see lazy
-  usleep 129187;
-}
-
+         
+# hide the cursor and set a routine to restore it if we're not killed
 sub restore_cnorm {
   system("tput cnorm");
   print "\n";
   exit 0;
+} 
+system("tput civis");
+@SIG{qw(INT TERM HUP)} = \&restore_cnorm;
+
+# add a day to fudge date math if we get an initial negative count
+my $fudge = 0;
+if ($dt->epoch - time < 0)
+{
+  $fudge = 86400;
+  die "time's calculating to past whether we interpret it as today or tomorrow; giving up!" if $fudge + $dt->epoch - time < 0;
 }
+
+# keep track of how long to sleep and when we last ticked, so we can
+# modulate jitter and all that silly stuff
+my $tick = IDEAL_TICK;
+my $last_microsec = (gettimeofday)[1];
+$last_microsec -= $last_microsec < IDEAL_TICK ? 50000 : -950000;
+
+# let the user know we're not asleep by showing them how much remains
+my @sigil = ('█', '▇', '▆', '▅', '▄', '▃', '▂', '▁', ' ',);
+
+for (;;)
+{
+  my ($seconds, $microseconds) = gettimeofday;
+  my $index = nearest_floor(1, $#sigil * $microseconds / 1000000.0);
+
+  # bar color
+  my $cur_sigil = $sigil[$index];
+  print PUSHCOLOR BRIGHT_BLACK ON_BLACK "\r$cur_sigil ";
+  my $delta = $fudge + $dt->epoch - $seconds;
+
+  # pretty colors
+  if ($delta > 10) {
+    print PUSHCOLOR BRIGHT_GREEN ON_BLACK;
+  } elsif ($delta > 0) {
+    print PUSHCOLOR BRIGHT_YELLOW ON_BLACK;
+  } elsif ($delta == 0) {
+    print PUSHCOLOR BRIGHT_MAGENTA ON_BLACK;
+  } else {
+    print PUSHCOLOR BRIGHT_RED ON_BLACK;
+  }
+  print $delta;
+
+  # back to bar color
+  print POPCOLOR;
+
+  print " $cur_sigil "; # clean up any trailing characters if we make a smaller $delta
+
+  # no color
+  print POPCOLOR;
+
+  # schedule next time we want to print an update, accounting for jitter
+  my $now_microsec = (gettimeofday)[1];
+  my $delta_u = $now_microsec - $last_microsec;
+  $last_microsec = $now_microsec;
+  $delta_u += 1000000 if $delta_u < 0;
+  # adjust to time slice deltas, scaling jitter at 25%
+  $tick += int((IDEAL_TICK - $delta_u) / 4);
+
+  die "the world is inconsistent, I cannot continue" if $tick > 50000 || $tick < 0;
+  usleep(int($tick));
+}
+
+
