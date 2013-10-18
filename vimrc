@@ -270,6 +270,7 @@ else
   set bdir=~/tmp/vimbu,/tmp
   set spellfile=~/.vimspellinglist.add
   set dir=~/tmp/vimsw,/tmp
+  set undodir=~/tmp/vimun,/tmp
   nmap <leader>e :e $HOME/.vimrc<CR>
   nmap <leader>s :source $HOME/.vimrc<CR>
 endif
