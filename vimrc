@@ -10,7 +10,7 @@ endif
 " }}}
 " VUNDLE {{{
 call vundle#rc()
-" Don't forget to :VundleInstall to bootstrap environment!
+" Don't forget to :BundleInstall to bootstrap environment!
 Bundle 'bling/vim-airline'
 Bundle 'ervandew/supertab'
 Bundle 'kchmck/vim-coffee-script'
@@ -20,6 +20,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/nagios-syntax'
 Bundle 'vim-scripts/vimwiki'
+Bundle 'mrtazz/simplenote.vim'
 " }}}
 " VIMWIKI {{{
 let g:vimwiki_folding=0
@@ -275,3 +276,8 @@ else
   nmap <leader>s :source $HOME/.vimrc<CR>
 endif
 " }}} 
+" SECRETS {{{
+if filereadable(expand("$HOME/.vimrc.secrets"))
+  source $HOME/.vimrc.secrets
+endif
+" }}}
