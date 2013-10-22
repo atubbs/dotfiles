@@ -65,6 +65,7 @@ fi
 
 
 alias ccat="$HOME/scripts/ccat.sh"
+alias sn='vim "+Simplenote -l"'
 
 # well, it wasn't going to be emacs, you know
 setopt vi
