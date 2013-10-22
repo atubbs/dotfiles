@@ -36,6 +36,9 @@ autocmd BufEnter *.wiki set expandtab
 " make airline prettery, because why not?
 let g:airline_powerline_fonts = 1
 
+" treat simplenote as markdown default
+let g:SimplenoteFiletype="markdown"
+
 " make quickfix use existing buffer if present, otherwise spawn a new tab,
 " rather than do stupid shit
 set switchbuf+=usetab,newtab
@@ -167,6 +170,7 @@ let mapleader = ","
 " show long warnings
 nnoremap <silent> <leader>ll :call HighlightLongLines()<CR>
 
+nmap <leader>sn :Simplenote -l<CR>
 nmap <leader>p :set paste<CR>
 nmap <leader>P :set nopaste<CR>
 
