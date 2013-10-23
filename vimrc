@@ -170,6 +170,8 @@ let mapleader = ","
 " show long warnings
 nnoremap <silent> <leader>ll :call HighlightLongLines()<CR>
 
+map <C-I> :pyf $HOME/scripts/clang-format.py<CR>
+imap <C-I> <ESC>:pyf $HOME/scripts/clang-format.py<CR>i
 nmap <leader>sn :Simplenote -l<CR>
 nmap <leader>p :set paste<CR>
 nmap <leader>P :set nopaste<CR>
