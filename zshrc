@@ -5,10 +5,11 @@ autoload -U compinit promptinit
 compinit
 promptinit
 
-bindirs=("$HOME/scripts" "$HOME/local/bin" "$HOME/.local/bin")
+bindirs=("$HOME/scripts" "$HOME/local/bin" "$HOME/.local/bin" "$HOME/code/go/bin")
 for p in $bindirs; do
   PATH="$p:$PATH"
 done
+export GOROOT="$HOME/code/go"
 
 # macports; should make this pluggable/conditional
 if [[ $OS =~ "Darwin" ]]; then

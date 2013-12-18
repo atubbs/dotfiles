@@ -22,6 +22,9 @@ Bundle 'vim-scripts/nagios-syntax'
 Bundle 'vim-scripts/vimwiki'
 Bundle 'mrtazz/simplenote.vim'
 " }}}
+" GOLANG {{{
+set rtp+=$GOROOT/misc/vim
+" }}}
 " VIMWIKI {{{
 let g:vimwiki_folding=0
 let g:vimwiki_use_calendar=1
