@@ -1,6 +1,8 @@
 dotfiles
 ========
 Bootstrap a home directory. Clone into wherever you like and run setup.sh.
+Says it's dotfiles, but there's things here that aren't really dotfiles.
+Probably better to call it 'homedir' but then that's not what I called it.
 
 external setup
 ==============

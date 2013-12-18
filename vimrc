@@ -1,9 +1,16 @@
 " vim: set foldmethod=marker foldlevel=0:
+
+" PLATFORM SPECIFIC PREFIX {{{
+if has("win32") || has("win64")
+  let g:bundle_dir=expand("$HOME/vimfiles/bundle")
+  set rtp+=$HOME/vimfiles/bundle/vundle
+else
+  set rtp+=~/.vim/bundle/vundle/
+endif
+" }}}
 " VUNDLE {{{
-filetype off
-set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-" Don't forget to :VundleInstall to bootstrap environment!
+" Don't forget to :BundleInstall to bootstrap environment!
 Bundle 'bling/vim-airline'
 Bundle 'ervandew/supertab'
 Bundle 'kchmck/vim-coffee-script'
@@ -11,28 +18,44 @@ Bundle 'tomasr/molokai'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
+Bundle 'vim-scripts/nagios-syntax'
+Bundle 'vim-scripts/vimwiki'
+Bundle 'mrtazz/simplenote.vim'
+" }}}
+" GOLANG {{{
+set rtp+=$GOROOT/misc/vim
+" }}}
+" VIMWIKI {{{
+let g:vimwiki_folding=0
+let g:vimwiki_use_calendar=1
+autocmd BufEnter *.wiki set ts=8
+autocmd BufEnter *.wiki set sts=4
+autocmd BufEnter *.wiki set sw=4
+autocmd BufEnter *.wiki set tw=20000
+autocmd BufEnter *.wiki set expandtab
 " }}}
 " SETTINGS {{{
 
 " make airline prettery, because why not?
 let g:airline_powerline_fonts = 1
 
+" treat simplenote as markdown default
+let g:SimplenoteFiletype="markdown"
+
 " make quickfix use existing buffer if present, otherwise spawn a new tab,
 " rather than do stupid shit
-:set switchbuf+=usetab,newtab
+set switchbuf+=usetab,newtab
 
 " make sure ({}) doesn't error in C++11
 let c_no_curly_error=1
 
 set autochdir
 set backspace=indent,eol,start
-set bdir=~/tmp/vimbu,/tmp
 set bk
 set bkc=yes " needed in order to preserve application assignment to file in OS X
 set complete-=i " don't scan included files (slow)
 set completeopt=longest,menu,preview
 set diffopt=filler,vertical,iwhite,foldcolumn:2
-set dir=~/tmp/vimsw,/tmp
 set display=lastline
 set encoding=utf-8
 set expandtab
@@ -71,7 +94,6 @@ set showcmd
 set showmatch
 set sidescrolloff=10     
 set smartcase
-set spellfile=~/.vimspellinglist.add
 set spelllang=en
 set statusline +=%4v\ %*             "virtual column number
 set statusline +=%=%5l%*             "current line
@@ -90,7 +112,6 @@ set title
 set ttyfast
 set ttymouse=xterm2
 set tw=75 " try to fit in 80 characters
-set undodir=~/tmp/vimun,/tmp
 set undofile
 set undolevels=1000
 set undoreload=10000
@@ -152,6 +173,9 @@ let mapleader = ","
 " show long warnings
 nnoremap <silent> <leader>ll :call HighlightLongLines()<CR>
 
+map <C-I> :pyf $HOME/scripts/clang-format.py<CR>
+imap <C-I> <ESC>:pyf $HOME/scripts/clang-format.py<CR>i
+nmap <leader>sn :Simplenote -l<CR>
 nmap <leader>p :set paste<CR>
 nmap <leader>P :set nopaste<CR>
 
@@ -161,8 +185,6 @@ nmap <leader>f :set nofoldenable<CR>
 nmap <leader>w :%s/\s\+$//g<CR>
 
 " a bit meta, but I do this often enough
-nmap <leader>e :e ~/.vimrc<CR>
-nmap <leader>s :source ~/.vimrc<CR>
 
 " pop buffer into new tab
 nmap <leader>j :tabnew %<cr>gT :q<CR>gt
@@ -179,6 +201,17 @@ nmap <leader>r ggg?G
 
 " title-ize the current visual selection
 vmap ,u :s/\<\(.\)\(\k*\)\>/\u\1\L\2/g<CR>
+
+" C-U to search visual selection
+vmap <silent> * :<C-U>let old_reg=@"<cr>
+                  \gvy/<C-R><C-R>=substitute(
+                  \escape(@", '\\/.*$^~[]'), "\n$", "", "")<CR><CR>
+                  \:let @"=old_reg<cr>
+vmap <silent> # :<C-U>let old_reg=@"<cr>
+                  \gvy?<C-R><C-R>=substitute(
+                  \escape(@", '\\/.*$^~[]'), "\n$", "", "")<CR><CR>
+                  \:let @"=old_reg<cr> 
+
 
 " visual line/block last edit
 nmap <leader>v '[v']
@@ -203,231 +236,6 @@ nmap <silent><leader>color :XtermColorTable<CR>
 " g/ will search for visually highlighted text, with spec chars auto-escaped
 vmap <silent> g/ y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
 
-" LEADERS {{{
-" LEADERS {{{
-
-" , makes my pinky hurt a lot less than \
-let mapleader = ","
-
-" show long warnings
-nnoremap <silent> <leader>ll :call HighlightLongLines()<CR>
-
-" trim trailing whitespace
-nmap <leader>c :%s/\s\+$//g<CR>
-
-" a bit meta, but I do this often enough
-nmap <leader>e :e ~/.vimrc<CR>
-nmap <leader>s :source ~/.vimrc<CR>
-
-" pop buffer into new tab
-nmap <leader>j :tabnew %<cr>gT :q<CR>gt
-
-" tab convenience
-nmap <leader>n :tabnext<cr>
-nmap <leader>N :tabprev<cr>
-
-" stupid rot13 tricks
-nmap <leader>r ggg?G
-
-" title-ize the current visual selection
-vmap ,u :s/\<\(.\)\(\k*\)\>/\u\1\L\2/g<CR>
-
-" visual line/block last edit
-nmap <leader>v '[v']
-nmap <leader>V '[V']
-
-" liquid syntax seems to bog down in certain circumstances, so I'll just
-" markdown by default
-nmap <leader>q :set syntax=liquid<CR>
-
-" clear search highlights
-nmap <silent><leader>/ :nohls<CR>
-
-" toggle line numbering mechanisms
-nmap <silent><leader># :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
-
-" if you find yourself needing a 256 color table, press ,color
-nmap <silent><leader>color :XtermColorTable<CR>
-" EOLEADERS }}}
-" LEADERS {{{
-
-" , makes my pinky hurt a lot less than \
-let mapleader = ","
-
-" show long warnings
-nnoremap <silent> <leader>ll :call HighlightLongLines()<CR>
-
-" trim trailing whitespace
-nmap <leader>c :%s/\s\+$//g<CR>
-
-" a bit meta, but I do this often enough
-nmap <leader>e :e ~/.vimrc<CR>
-nmap <leader>s :source ~/.vimrc<CR>
-
-" pop buffer into new tab
-nmap <leader>j :tabnew %<cr>gT :q<CR>gt
-
-" tab convenience
-nmap <leader>n :tabnext<cr>
-nmap <leader>N :tabprev<cr>
-
-" stupid rot13 tricks
-nmap <leader>r ggg?G
-
-" title-ize the current visual selection
-vmap ,u :s/\<\(.\)\(\k*\)\>/\u\1\L\2/g<CR>
-
-" visual line/block last edit
-nmap <leader>v '[v']
-nmap <leader>V '[V']
-
-" liquid syntax seems to bog down in certain circumstances, so I'll just
-" markdown by default
-nmap <leader>q :set syntax=liquid<CR>
-
-" clear search highlights
-nmap <silent><leader>/ :nohls<CR>
-
-" toggle line numbering mechanisms
-nmap <silent><leader># :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
-
-" if you find yourself needing a 256 color table, press ,color
-nmap <silent><leader>color :XtermColorTable<CR>
-" EOLEADERS }}}
-" LEADERS {{{
-
-" , makes my pinky hurt a lot less than \
-let mapleader = ","
-
-" show long warnings
-nnoremap <silent> <leader>ll :call HighlightLongLines()<CR>
-
-" trim trailing whitespace
-nmap <leader>c :%s/\s\+$//g<CR>
-
-" a bit meta, but I do this often enough
-nmap <leader>e :e ~/.vimrc<CR>
-nmap <leader>s :source ~/.vimrc<CR>
-
-" pop buffer into new tab
-nmap <leader>j :tabnew %<cr>gT :q<CR>gt
-
-" tab convenience
-nmap <leader>n :tabnext<cr>
-nmap <leader>N :tabprev<cr>
-
-" stupid rot13 tricks
-nmap <leader>r ggg?G
-
-" title-ize the current visual selection
-vmap ,u :s/\<\(.\)\(\k*\)\>/\u\1\L\2/g<CR>
-
-" visual line/block last edit
-nmap <leader>v '[v']
-nmap <leader>V '[V']
-
-" liquid syntax seems to bog down in certain circumstances, so I'll just
-" markdown by default
-nmap <leader>q :set syntax=liquid<CR>
-
-" clear search highlights
-nmap <silent><leader>/ :nohls<CR>
-
-" toggle line numbering mechanisms
-nmap <silent><leader># :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
-
-" if you find yourself needing a 256 color table, press ,color
-nmap <silent><leader>color :XtermColorTable<CR>
-" EOLEADERS }}}
-" LEADERS {{{
-
-" , makes my pinky hurt a lot less than \
-let mapleader = ","
-
-" show long warnings
-nnoremap <silent> <leader>ll :call HighlightLongLines()<CR>
-
-" trim trailing whitespace
-nmap <leader>c :%s/\s\+$//g<CR>
-
-" a bit meta, but I do this often enough
-nmap <leader>e :e ~/.vimrc<CR>
-nmap <leader>s :source ~/.vimrc<CR>
-
-" pop buffer into new tab
-nmap <leader>j :tabnew %<cr>gT :q<CR>gt
-
-" tab convenience
-nmap <leader>n :tabnext<cr>
-nmap <leader>N :tabprev<cr>
-
-" stupid rot13 tricks
-nmap <leader>r ggg?G
-
-" title-ize the current visual selection
-vmap ,u :s/\<\(.\)\(\k*\)\>/\u\1\L\2/g<CR>
-
-" visual line/block last edit
-nmap <leader>v '[v']
-nmap <leader>V '[V']
-
-" liquid syntax seems to bog down in certain circumstances, so I'll just
-" markdown by default
-nmap <leader>q :set syntax=liquid<CR>
-
-" clear search highlights
-nmap <silent><leader>/ :nohls<CR>
-
-" toggle line numbering mechanisms
-nmap <silent><leader># :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
-
-" if you find yourself needing a 256 color table, press ,color
-nmap <silent><leader>color :XtermColorTable<CR>
-" EOLEADERS }}}
-
-" , makes my pinky hurt a lot less than \
-let mapleader = ","
-
-" show long warnings
-nnoremap <silent> <leader>ll :call HighlightLongLines()<CR>
-
-" trim trailing whitespace
-nmap <leader>c :%s/\s\+$//g<CR>
-
-" a bit meta, but I do this often enough
-nmap <leader>e :e ~/.vimrc<CR>
-nmap <leader>s :source ~/.vimrc<CR>
-
-" pop buffer into new tab
-nmap <leader>j :tabnew %<cr>gT :q<CR>gt
-
-" tab convenience
-nmap <leader>n :tabnext<cr>
-nmap <leader>N :tabprev<cr>
-
-" stupid rot13 tricks
-nmap <leader>r ggg?G
-
-" title-ize the current visual selection
-vmap ,u :s/\<\(.\)\(\k*\)\>/\u\1\L\2/g<CR>
-
-" visual line/block last edit
-nmap <leader>v '[v']
-nmap <leader>V '[V']
-
-" liquid syntax seems to bog down in certain circumstances, so I'll just
-" markdown by default
-nmap <leader>q :set syntax=liquid<CR>
-
-" clear search highlights
-nmap <silent><leader>/ :nohls<CR>
-
-" toggle line numbering mechanisms
-nmap <silent><leader># :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
-
-" if you find yourself needing a 256 color table, press ,color
-nmap <silent><leader>color :XtermColorTable<CR>
-" EOLEADERS }}}
 " use f7 to toggle spell check
 nmap <silent> <F7> :setlocal invspell<CR>
 
@@ -459,3 +267,26 @@ filetype plugin indent on
 " dfx -> dtx retains char x
 "
 " EOTIPS }}}
+" PLATFORM SPECIFIC SUFFIX {{{
+if has("win32") || has("win64")
+  nmap <leader>M :simalt ~X<CR>
+  set bdir=$HOME/tmp/vimbu
+  set spellfile=$HOME/.vimspellinglist.add
+  set dir=$HOME/tmp/vimsw
+  set undodir=$HOME/tmp/vimun
+  nmap <leader>e :e $HOME/_vimrc<CR>
+  nmap <leader>s :source $HOME/_vimrc<CR>
+else
+  set bdir=~/tmp/vimbu,/tmp
+  set spellfile=~/.vimspellinglist.add
+  set dir=~/tmp/vimsw,/tmp
+  set undodir=~/tmp/vimun,/tmp
+  nmap <leader>e :e $HOME/.vimrc<CR>
+  nmap <leader>s :source $HOME/.vimrc<CR>
+endif
+" }}} 
+" SECRETS {{{
+if filereadable(expand("$HOME/.vimrc.secrets"))
+  source $HOME/.vimrc.secrets
+endif
+" }}}
