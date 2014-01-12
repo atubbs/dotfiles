@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+open INDEX, ">index.html";
+print INDEX "<html><head><title></title></head><body>\n";
+
+opendir DIR, "." or die $!;
+foreach my $file (sort readdir DIR) {
+  next unless $file =~ /\.jpg$/i;
+  die unless -f "thumbs/thumb$file";
+
+print INDEX <<EOPRINT;
+<a href="$file"><img src="thumbs/thumb$file" /></a>
+EOPRINT
+}
+
+print INDEX "</body></html>";

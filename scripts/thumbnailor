@@ -1,0 +1,56 @@
+#! /bin/sh
+
+# Thumbnailor! V1.0
+# Copyright (C) 2006 Liam Craig McDermott
+# 
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+scriptusage="Usage: thumbs.sh \"pattern\" size quality"
+if [ $# -ne 3 ]
+then
+   #Less than 3 arguments supplied
+   echo "Please specify 3 arguments - filename pattern, size and quality \ne.g. thumbs.sh \"*.jpg\" 150 60"
+   echo "\n$scriptusage"
+   exit 1
+fi
+
+if [ $3 -le 0 ] || [ $3 -gt 100 ]
+then
+   #Third argument not between 1 and 100
+   echo "Error: quality argument must be between 1 and 100"
+   echo "$scriptusage"
+   exit 1
+fi
+
+if [ -d "./thumbs" ]
+then
+   rm -rf "./thumbs"
+fi
+mkdir thumbs
+for img in $1
+   #Remember: the first parameter has to be passed with quotes surrounding it! e.g. thumbnail.sh "*.jpg"
+do
+   imgheight=`identify -format '%h' "$img"`
+   imgwidth=`identify -format '%w' "$img"`
+   if [ $imgwidth -gt $imgheight ]
+   then
+      convert "$img" -thumbnail x$2 -gravity center -crop $2x$2+0+0 -background grey -fill black label:$img -gravity South -append -quality $3 "./thumbs/thumb$img"
+	 #shrink image height to that of second argument, maintain aspect ratio, then crop image from centre and output to subdirectory
+   else
+      convert "$img" -thumbnail $2x -gravity center -crop $2x$2+0+0 -background grey -fill black label:$img -gravity South -append -quality $3 "./thumbs/thumb$img"
+	 #same as above but shrink image width
+   fi
+done
+exit 0
