@@ -1,0 +1,59 @@
+alignment top_right
+background no
+border_margin 4
+border_width 1
+cpu_avg_samples 2
+default_color white
+default_outline_color black
+default_shade_color black
+double_buffer no
+draw_borders no
+draw_outline no
+draw_shades yes
+font 7x13
+gap_x 12
+gap_y 12
+maximum_width 308
+minimum_size 300 5
+net_avg_samples 2
+no_buffers yes
+on_bottom yes
+override_utf8_locale no
+own_window yes
+own_window_transparent no
+stippled_borders 8
+total_run_times 0
+update_interval 5.0
+uppercase no
+use_spacer no
+use_xft no
+
+TEXT
+${color #5b6dad}$nodename   linux-$kernel${alignr}${time %T}
+${color #5b6dad}System:
+${color #5b6dad} Uptime:${color #7f8ed3} $uptime ${color #5b6dad}- Load:${color #7f8ed3} $loadavg
+${color #5b6dad} CPU Frequency:${color #7f8ed3} $freq_dyn_g ${color #5b6dad} Maximum:${color #7f8ed3} $freq_g
+${color #5b6dad} CPU Usage:${color #7f8ed3} $cpu% ${cpubar}
+${color #000000}${cpugraph cpu0 32,309 000000 7f8ed3}
+${color #5b6dad} RAM Usage:${color #7f8ed3} $mem/$memmax - $memperc% ${membar}
+${color #5b6dad} Swap Usage:${color #7f8ed3} $swap/$swapmax - $swapperc% ${swapbar}
+${color #5b6dad} Processes:${color #7f8ed3} $processes  ${color #5b6dad}Running:${color #7f8ed3} $running_processes
+${color #5b6dad}Core Temperature:
+ ${color #5b6dad}${execi 300 sensors -f | grep 'Core 0' | cut -c17-21 }${iconv_start UTF-8 ISO_8859-1}°${iconv_stop}F
+ ${color #5b6dad}${execi 300 sensors -f | grep 'Core 1' | cut -c17-21 }${iconv_start UTF-8 ISO_8859-1}°${iconv_stop}F
+${color #5b6dad}Networking:
+ ${color #5b6dad}Down:${color #7f8ed3} ${downspeed wlan0} k/s${color #5b6dad}${offset 80}Up:${color #7f8ed3} ${upspeed wlan0} k/s
+${color #000000}${downspeedgraph wlan0 32,150 000000 7f8ed3} ${color #000000}${upspeedgraph wlan0 32,150 000000 7f8ed3}
+ ${color #5b6dad}Address: ${color #7f8ed3}${addr wlan0}${alignr}${color #5b6dad}TCP Connections: ${color #7f8ed3}${tcp_portmon 1 65535 count}
+${color #5b6dad}Disk:
+ ${color #5b6dad}/ ${color #7f8ed3}${fs_used /}/${fs_size /} ${color #7f8ed3}${fs_bar /}
+ ${color #5b6dad}Read:${color #7f8ed3} ${diskio_read /dev/sda} k/s${color #5b6dad}${offset 80}Write:${color #7f8ed3} ${diskio_write /dev/sda} k/s
+${color #000000}${diskiograph_read /dev/sda 32,150, 000000 7f8ed3} ${color #000000}${diskiograph_write /dev/sda 32,150, 000000 7f8ed3} 
+${color #5b6dad}Name              PID     CPU%   MEM%
+${color #7f8ed3} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
+${color #7f8ed3} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
+${color #7f8ed3} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
+${color #5b6dad}Mem usage
+${color #7f8ed3} ${top_mem name 1} ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem 1}
+${color #7f8ed3} ${top_mem name 2} ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
+${color #7f8ed3} ${top_mem name 3} ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem 3}
