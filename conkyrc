@@ -32,9 +32,18 @@ TEXT
 ${color #5b6dad}$nodename   linux-$kernel${alignr}${time %T}
 ${color #5b6dad}System:
 ${color #5b6dad} Uptime:${color #7f8ed3} $uptime ${color #5b6dad}- Load:${color #7f8ed3} $loadavg
-${color #5b6dad} CPU Frequency:${color #7f8ed3} $freq_dyn_g ${color #5b6dad} Maximum:${color #7f8ed3} $freq_g
-${color #5b6dad} CPU Usage:${color #7f8ed3} $cpu% ${cpubar}
-${color #000000}${cpugraph cpu0 32,309 000000 7f8ed3}
+${color #5b6dad} CPU 1 Freq:${color #7f8ed3} ${freq 1} ${color #5b6dad} Maximum:${color #7f8ed3} $freq_g
+${color #5b6dad} CPU 2 Freq:${color #7f8ed3} ${freq 2} ${color #5b6dad} Maximum:${color #7f8ed3} $freq_g
+${color #5b6dad} CPU 3 Freq:${color #7f8ed3} ${freq 3} ${color #5b6dad} Maximum:${color #7f8ed3} $freq_g
+${color #5b6dad} CPU 4 Freq:${color #7f8ed3} ${freq 4} ${color #5b6dad} Maximum:${color #7f8ed3} $freq_g
+${color #5b6dad} CPU 1 Usage:${color #7f8ed3} ${cpu 1}% ${cpubar 1}
+${color #5b6dad} CPU 2 Usage:${color #7f8ed3} ${cpu 2}% ${cpubar 2}
+${color #5b6dad} CPU 3 Usage:${color #7f8ed3} ${cpu 3}% ${cpubar 3}
+${color #5b6dad} CPU 4 Usage:${color #7f8ed3} ${cpu 4}% ${cpubar 4}
+${color #000000}${cpugraph cpu0 8,309 000000 7f8ed3}
+${color #000000}${cpugraph cpu1 8,309 000000 7f8ed3}
+${color #000000}${cpugraph cpu2 8,309 000000 7f8ed3}
+${color #000000}${cpugraph cpu3 8,309 000000 7f8ed3}
 ${color #5b6dad} RAM Usage:${color #7f8ed3} $mem/$memmax - $memperc% ${membar}
 ${color #5b6dad} Swap Usage:${color #7f8ed3} $swap/$swapmax - $swapperc% ${swapbar}
 ${color #5b6dad} Processes:${color #7f8ed3} $processes  ${color #5b6dad}Running:${color #7f8ed3} $running_processes
