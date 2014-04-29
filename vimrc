@@ -21,6 +21,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/nagios-syntax'
 Bundle 'vim-scripts/vimwiki'
 Bundle 'mrtazz/simplenote.vim'
+Bundle 'derekwyatt/vim-scala'
+Bundle 'jergason/scala'
 " }}}
 " GOLANG {{{
 set rtp+=$GOROOT/misc/vim
@@ -33,6 +35,9 @@ autocmd BufEnter *.wiki set sts=4
 autocmd BufEnter *.wiki set sw=4
 autocmd BufEnter *.wiki set tw=20000
 autocmd BufEnter *.wiki set expandtab
+" }}}
+" SCALA CRAP {{{
+au BufRead,BufNewFile *.scala set filetype=scala
 " }}}
 " SETTINGS {{{
 
@@ -173,8 +178,8 @@ let mapleader = ","
 " show long warnings
 nnoremap <silent> <leader>ll :call HighlightLongLines()<CR>
 
-map <C-I> :pyf $HOME/scripts/clang-format.py<CR>
-imap <C-I> <ESC>:pyf $HOME/scripts/clang-format.py<CR>i
+"map <C-I> :pyf $HOME/scripts/clang-format.py<CR>
+"imap <C-I> <ESC>:pyf $HOME/scripts/clang-format.py<CR>i
 nmap <leader>sn :Simplenote -l<CR>
 nmap <leader>p :set paste<CR>
 nmap <leader>P :set nopaste<CR>
