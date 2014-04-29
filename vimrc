@@ -22,7 +22,6 @@ Bundle 'vim-scripts/nagios-syntax'
 Bundle 'vim-scripts/vimwiki'
 Bundle 'mrtazz/simplenote.vim'
 Bundle 'derekwyatt/vim-scala'
-Bundle 'jergason/scala'
 " }}}
 " GOLANG {{{
 set rtp+=$GOROOT/misc/vim
