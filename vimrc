@@ -22,6 +22,7 @@ Bundle 'vim-scripts/nagios-syntax'
 Bundle 'vim-scripts/vimwiki'
 Bundle 'mrtazz/simplenote.vim'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'wting/rust.vim'
 " }}}
 " GOLANG {{{
 set rtp+=$GOROOT/misc/vim
@@ -115,7 +116,6 @@ set sw=2
 set title
 set ttyfast
 set ttymouse=xterm2
-set tw=75 " try to fit in 80 characters
 set undofile
 set undolevels=1000
 set undoreload=10000
