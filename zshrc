@@ -86,3 +86,6 @@ export RPROMPT="${COLOR_HIST}%~${COLOR_NORMAL}"
 
 # rvm, if we've got one
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+# cores, those are nice
+ulimit -c unlimited
