@@ -72,6 +72,7 @@ fi
 alias ccat="$HOME/scripts/ccat.sh"
 alias sn='vim "+Simplenote -l"'
 alias t="tmux attach -d"
+alias :e="vim"
 
 # well, it wasn't going to be emacs, you know
 setopt vi
