@@ -23,6 +23,7 @@ Bundle 'vim-scripts/vimwiki'
 Bundle 'mrtazz/simplenote.vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'wting/rust.vim'
+Bundle 'marijnh/tern_for_vim'
 " }}}
 " GOLANG {{{
 set rtp+=$GOROOT/misc/vim
