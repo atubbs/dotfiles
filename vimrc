@@ -23,9 +23,19 @@ Bundle 'vim-scripts/vimwiki'
 Bundle 'mrtazz/simplenote.vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'wting/rust.vim'
+Bundle 'kien/ctrlp.vim'
 " }}}
 " GOLANG {{{
 set rtp+=$GOROOT/misc/vim
+" }}}
+" CTRLP {{{
+:let g:ctrlp_map = '<Leader>cp'
+:let g:ctrlp_match_window_bottom = 0
+:let g:ctrlp_match_window_reversed = 0
+:let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
+:let g:ctrlp_working_path_mode = 0
+:let g:ctrlp_dotfiles = 0
+:let g:ctrlp_switch_buffer = 0
 " }}}
 " VIMWIKI {{{
 let g:vimwiki_folding=0
@@ -142,7 +152,7 @@ augroup gzip
 augroup end
 
 augroup spelling
-  autocmd BufEnter *.{markdown} set spell
+  autocmd BufEnter *.{md,markdown} set spell
 augroup end
 " }}}
 " COLORSCHEMES & syntax {{{
@@ -183,6 +193,7 @@ nmap <leader>sn :Simplenote -l<CR>
 nmap <leader>p :set paste<CR>
 nmap <leader>P :set nopaste<CR>
 
+
 nmap <leader>f :set nofoldenable<CR>
 
 " trim trailing whitespace
@@ -192,6 +203,9 @@ nmap <leader>w :%s/\s\+$//g<CR>
 
 " pop buffer into new tab
 nmap <leader>j :tabnew %<cr>gT :q<CR>gt
+
+" CtrlP
+nmap <leader>cp :CtrlPBuffer<CR>
 
 " regen tags
 nmap <leader>z :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
@@ -215,7 +229,6 @@ vmap <silent> # :<C-U>let old_reg=@"<cr>
                   \gvy?<C-R><C-R>=substitute(
                   \escape(@", '\\/.*$^~[]'), "\n$", "", "")<CR><CR>
                   \:let @"=old_reg<cr> 
-
 
 " visual line/block last edit
 nmap <leader>v '[v']
@@ -242,6 +255,10 @@ vmap <silent> g/ y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
 
 " use f7 to toggle spell check
 nmap <silent> <F7> :setlocal invspell<CR>
+
+" make j/k work better with wrapped lines
+nmap j gj
+nmap k gk
 
 " make Y work like D to yank till line end
 nnoremap Y y$
