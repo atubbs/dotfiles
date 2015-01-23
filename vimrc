@@ -24,6 +24,8 @@ Bundle 'mrtazz/simplenote.vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'wting/rust.vim'
 Bundle 'kien/ctrlp.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'plasticboy/vim-markdown'
 " }}}
 " GOLANG {{{
 set rtp+=$GOROOT/misc/vim
@@ -45,6 +47,9 @@ autocmd BufEnter *.wiki set sts=4
 autocmd BufEnter *.wiki set sw=4
 autocmd BufEnter *.wiki set tw=20000
 autocmd BufEnter *.wiki set expandtab
+" }}}
+" MARKDOWN {{{
+autocmd BufRead,BufNewFile *.md set filetype=markdown
 " }}}
 " SCALA CRAP {{{
 au BufRead,BufNewFile *.scala set filetype=scala
