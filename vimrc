@@ -26,6 +26,7 @@ Bundle 'wting/rust.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'plasticboy/vim-markdown'
+Bundle 'pangloss/vim-javascript'
 " }}}
 " GOLANG {{{
 set rtp+=$GOROOT/misc/vim
