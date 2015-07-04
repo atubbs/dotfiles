@@ -1,32 +1,30 @@
 " vim: set foldmethod=marker foldlevel=0:
 
-" PLATFORM SPECIFIC PREFIX {{{
-if has("win32") || has("win64")
-  let g:bundle_dir=expand("$HOME/vimfiles/bundle")
-  set rtp+=$HOME/vimfiles/bundle/vundle
-else
-  set rtp+=~/.vim/bundle/vundle/
-endif
-" }}}
 " VUNDLE {{{
-call vundle#rc()
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
 " Don't forget to :BundleInstall to bootstrap environment!
-Bundle 'bling/vim-airline'
-Bundle 'ervandew/supertab'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'tomasr/molokai'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/nagios-syntax'
-Bundle 'vim-scripts/vimwiki'
-Bundle 'mrtazz/simplenote.vim'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'wting/rust.vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'pangloss/vim-javascript'
+Plugin 'bling/vim-airline'
+Plugin 'ervandew/supertab'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'tomasr/molokai'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/nagios-syntax'
+Plugin 'vim-scripts/vimwiki'
+Plugin 'mrtazz/simplenote.vim'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'kien/ctrlp.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'pangloss/vim-javascript'
+Plugin 'rust-lang/rust.vim'
+call vundle#end()
+filetype plugin indent on
 " }}}
 " GOLANG {{{
 set rtp+=$GOROOT/misc/vim

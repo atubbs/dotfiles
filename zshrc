@@ -83,6 +83,13 @@ bindkey "^N" down-line-or-history
 bindkey "^P" up-line-or-history
 bindkey "^R" history-incremental-search-backward
 
+# toys for command line convenience
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^O" push-line-or-edit
+bindkey -M vicmd v edit-command-line
+#bindkey "^E" edit-command-line
+
 export RPROMPT="${COLOR_HIST}%~${COLOR_NORMAL}"
 
 # rvm, if we've got one
